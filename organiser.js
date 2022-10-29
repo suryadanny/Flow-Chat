@@ -5,6 +5,9 @@ let client;
 let dataChannel;
 
 let token;
+let calle ; 
+
+let screen= false;
 
 let queryParams = new URLSearchParams(window.location.search)
 let roomId = queryParams.get('room-id')
@@ -82,6 +85,7 @@ let setAnswer = async (answer) =>{
 
 let handleUserJoined = async (memberId) => {
    console.log("new User Joined : " ,memberId)
+   calle = memberId
    createSDPOffer(memberId)
 }
 
@@ -95,7 +99,7 @@ let setupPeerConnection = async(memberId) => {
 
 
     if(!userStream){
-        userStream = await navigator.mediaDevices.getUserMedia({video: true, audio: false})
+        userStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true})
         document.getElementById('feed-1').srcObject = userStream
     }
 
@@ -132,7 +136,16 @@ let createSDPOffer = async (memberId) => {
     await setupPeerConnection(memberId)
     
     
-     
+    await sendSDPOffer(memberId)
+/*     let sdpOffer = await streamConnection.createOffer()
+    await streamConnection.setLocalDescription(sdpOffer)
+
+    console.log('offer: ',sdpOffer)
+    client.sendMessageToPeer({text:JSON.stringify({'type': 'offer' , 'offer': sdpOffer})},memberId)
+    console.log('done') */
+}
+
+let sendSDPOffer = async (memberId) => {
     let sdpOffer = await streamConnection.createOffer()
     await streamConnection.setLocalDescription(sdpOffer)
 
@@ -150,10 +163,68 @@ let createSDPAnswer = async(memberId,offer) => {
     client.sendMessageToPeer({text:JSON.stringify({'type': 'answer' , 'answer': sdpAnswer})},memberId)
 }
 
+let toggleCamera = async () => {
+      let videoStream = userStream.getTracks().find(track => track.kind === 'video')
+      if(videoStream.enabled){
+        videoStream.enabled = false
+        document.getElementById('cam-btn').style.backgroundColor = 'rgb(255,65,65)'
+      }else{
+        videoStream.enabled = true
+         document.getElementById('cam-btn').style.backgroundColor = 'rgb(14, 212, 7, 0.9)'
+      }
+}
+
+let toggleScreen = async () => {
+   if(!screen){
+    userStream = await navigator.mediaDevices.getDisplayMedia({video: true,audio: true});
+    document.getElementById('screen-btn').style.backgroundColor = 'rgb(255,65,65)'
+    screen = true;
+   }else{
+    userStream = await navigator.mediaDevices.getUserMedia({video: true,audio: true});
+    document.getElementById('screen-btn').style.backgroundColor = 'rgb(14, 212, 7, 0.9)'
+    screen = false;
+   }
+
+   userStream.getTracks().forEach(mediaTrack => {
+       streamConnection.addTrack(mediaTrack,userStream)
+   })
+
+   document.getElementById('feed-1').srcObject = userStream
+   await createSDPOffer(calle)
+} 
+
+let toggleMic = async () => {
+    let audioStream = userStream.getTracks().find(track => track.kind === 'audio')
+    console.log("mic toggle triggered", audioStream)
+   if(audioStream && typeof audioStream !== 'undefined'){ 
+    if(audioStream.enabled){
+        audioStream.enabled = false
+       document.getElementById('voice-btn').style.backgroundColor = 'rgb(255,65,65)'
+    }else{
+        audioStream.enabled = true
+        document.getElementById('voice-btn').style.backgroundColor = 'rgb(14, 212, 7, 0.9)'
+    }
+   }else{
+      console.log("audio stream not present --- reinitiating the user stream")
+      userStream = await navigator.mediaDevices.getUserMedia({video: true,audio: true});
+    
+ 
+       document.getElementById('feed-1').srcObject = userStream
+
+   }
+}
+
+
 let userLeftRoom = async () =>{
     await channel.leave()
     await client.logout()
 }
+
+document.getElementById('cam-btn').addEventListener('click',toggleCamera)
+document.getElementById('voice-btn').addEventListener('click',toggleMic)
+document.getElementById('screen-btn').addEventListener('click',toggleScreen)
+
+
 
 window.addEventListener('beforeunload',userLeftRoom)
 

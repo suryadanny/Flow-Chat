@@ -9,3 +9,35 @@
     width: 100%;
     height: 300px;
 }
+
+#user-2{
+    display: none;
+}
+
+#media-controls{
+    position:  fixed;
+    bottom: 20px;
+    left: 50%;
+    transform:translateX(-50%);
+    display: flex;
+    gap: 1em;
+}
+
+.control{
+    background-color: rgb(14, 212, 7, 0.9);
+    padding: 15px;
+    border-radius:  50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.control img{
+    height: 30px;
+    width: 30px;
+}
+
+#leave-btn{
+    background-color: rgb(226, 65, 65);
+}
