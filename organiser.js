@@ -136,13 +136,13 @@ let createSDPOffer = async (memberId) => {
     await setupPeerConnection(memberId)
     
     
-    await sendSDPOffer(memberId)
-/*     let sdpOffer = await streamConnection.createOffer()
+  //  await sendSDPOffer(memberId)
+    let sdpOffer = await streamConnection.createOffer()
     await streamConnection.setLocalDescription(sdpOffer)
 
     console.log('offer: ',sdpOffer)
     client.sendMessageToPeer({text:JSON.stringify({'type': 'offer' , 'offer': sdpOffer})},memberId)
-    console.log('done') */
+    console.log('done')
 }
 
 let sendSDPOffer = async (memberId) => {
@@ -175,22 +175,41 @@ let toggleCamera = async () => {
 }
 
 let toggleScreen = async () => {
+   let closeUserStream;
    if(!screen){
+    closeUserStream = userStream
     userStream = await navigator.mediaDevices.getDisplayMedia({video: true,audio: true});
     document.getElementById('screen-btn').style.backgroundColor = 'rgb(255,65,65)'
     screen = true;
    }else{
+    closeUserStream = userStream
     userStream = await navigator.mediaDevices.getUserMedia({video: true,audio: true});
     document.getElementById('screen-btn').style.backgroundColor = 'rgb(14, 212, 7, 0.9)'
     screen = false;
    }
-
-   userStream.getTracks().forEach(mediaTrack => {
-       streamConnection.addTrack(mediaTrack,userStream)
+   
+  streamConnection.getSenders().forEach((s) => {
+      console.log("sender : " , s)
    })
+   
+   const videoSender =  streamConnection.getSenders().find(sender => (sender.track) && sender.track.kind === 'video')
+   const audioSender =  streamConnection.getSenders().find(sender => (sender.track) && sender.track.kind === 'audio')
+   
+   userStream.getTracks().forEach(mediaTrack => {
+     if(mediaTrack.kind === 'video' && videoSender){
+        videoSender.replaceTrack(mediaTrack)
+     }else if (mediaTrack.kind === 'audio' && audioSender) {
+        audioSender.replaceTrack(mediaTrack)
+     } else {
+        console.log("media track didn't match with either audio/video", mediaTrack)
+     }
+  })
 
    document.getElementById('feed-1').srcObject = userStream
-   await createSDPOffer(calle)
+   closeUserStream.getTracks().forEach(track => {
+       console.log('stopping track')
+       track.stop()
+   })
 } 
 
 let toggleMic = async () => {
