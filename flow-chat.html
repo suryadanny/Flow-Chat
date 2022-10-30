@@ -13,13 +13,25 @@
         <link rel="stylesheet" href="flow-chat.css">
     </head>
     <body>
-        
-        
-        <form id="join-room" >
+
+        <main id = "lobby">
+            <div id = "lobby-container">
+                <div id = "form__content__header">
+                    <p>Create Or Join a Room</p>
+                </div>
+
+                <div id="form__content__Wrapper">
+                    <form id="join-room" >
            
-            <input type="text" id="room-id" name="roomId" value="room-id"  onfocus='if(this.value=="room-id"){this.value="";}' required>
-            <input type="submit" value="Join Room">
-        </form>
+                        <input type="text" id="room-id" name="roomId" value="room-id"  onfocus='if(this.value=="room-id"){this.value="";}' required>
+                        <input type="submit" value="Join Room">
+                    </form>
+                </div>
+            </div>
+        </main>
+        
+        
+        
     </body>
     <script>
         let joinForm = document.getElementById('join-room')

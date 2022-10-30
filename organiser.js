@@ -53,6 +53,7 @@ let init = async () => {
 
 let handleMemberLeft =  (memberId) => {
     document.getElementById('feed-2').style.display = 'none'
+    document.getElementById('feed-1').classList.remove('windowFrame')
 }
 
 let handleMsgFromRemote = async (message,memberId) => {
@@ -97,7 +98,7 @@ let setupPeerConnection = async(memberId) => {
     document.getElementById('feed-2').srcObject = remoteStream
     document.getElementById('feed-2').style.display = 'block'
 
-
+    document.getElementById('feed-1').classList.add('windowFrame')
     if(!userStream){
         userStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true})
         document.getElementById('feed-1').srcObject = userStream
@@ -136,7 +137,6 @@ let createSDPOffer = async (memberId) => {
     await setupPeerConnection(memberId)
     
     
-  //  await sendSDPOffer(memberId)
     let sdpOffer = await streamConnection.createOffer()
     await streamConnection.setLocalDescription(sdpOffer)
 
@@ -145,14 +145,7 @@ let createSDPOffer = async (memberId) => {
     console.log('done')
 }
 
-let sendSDPOffer = async (memberId) => {
-    let sdpOffer = await streamConnection.createOffer()
-    await streamConnection.setLocalDescription(sdpOffer)
 
-    console.log('offer: ',sdpOffer)
-    client.sendMessageToPeer({text:JSON.stringify({'type': 'offer' , 'offer': sdpOffer})},memberId)
-    console.log('done')
-}
 
 let createSDPAnswer = async(memberId,offer) => {
      
