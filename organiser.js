@@ -55,7 +55,7 @@ let init = async () => {
     client.on('MessageFromPeer', handleMsgFromRemote)
     userStream = await navigator.mediaDevices.getUserMedia(mediaConstraints)
     document.getElementById('feed-1').srcObject = userStream
-
+    document.getElementById("feed-1").muted = true;
     
 }
 
