@@ -30,14 +30,17 @@ const stunServers = {
                    'stun:stun2.l.google.com:19302',
                    'stun:stun3.l.google.com:19302',
                    'stun:stun4.l.google.com:19302',
-                   'stun:stun.ideasip.com',
-                   'stun:stun:stun.rixtelecom.se',
-                   'stun:stun.schlund.de',
-                   'stun:stun.stunprotocol.org:3478',
-                   'stun:stun.voiparound.com',
-                   'stun:stun.voipbuster.com',
-                   'stun:stun.voipstunt.com',
-                   'stun:stun.voxgratia.org'
+                   'stun:stun.counterpath.com:3478',
+                   'stun:stun.counterpath.net:3478',
+                   'stun:stun.cryptonit.net:3478',
+                   'stun:stun.darioflaccovio.it:3478',
+                   'stun:stun.datamanagement.it:3478',
+                   'stun:stun.dcalling.de:3478',
+                   'stun:stun.decanet.fr:3478',
+                   'stun:stun.demos.ru:3478',
+                   'stun:stun.develz.org:3478',
+                   'stun:stun.stunprotocol.org:3478'
+                   
                 ]
         }
     ]
