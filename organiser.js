@@ -162,6 +162,7 @@ let createSDPAnswer = async(memberId,offer) => {
     let sdpAnswer = await streamConnection.createAnswer()
     await streamConnection.setLocalDescription(sdpAnswer)
     client.sendMessageToPeer({text:JSON.stringify({'type': 'answer' , 'answer': sdpAnswer})},memberId)
+    console.log("sdpAnswer created ")
 }
 
 let toggleCamera = async () => {
