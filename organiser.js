@@ -12,7 +12,7 @@ let screen= false;
 let queryParams = new URLSearchParams(window.location.search)
 let roomId = queryParams.get('room-id')
 
-if(!roomId || typeof roomId === 'undefined' )
+if(!roomId || typeof roomId === 'undefined' || roomId=== "Enter Your Room Id Or Create One!!" || roomId ==="" )
 {
     window.location = 'flow-chat.html'
 }
@@ -31,6 +31,14 @@ const stunServers = {
     ]
 }
 
+let mediaConstraints = {
+    video: {
+        height: {min:480, ideal:1080, max:1080},
+        width: {min:640, ideal:1080, max:1080},
+    },
+    audio: true
+}
+
 
 let init = async () => {
     console.log("member uuid : ", uid)
@@ -45,7 +53,7 @@ let init = async () => {
     channel.on('MemberLeft',handleMemberLeft)
 
     client.on('MessageFromPeer', handleMsgFromRemote)
-    userStream = await navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    userStream = await navigator.mediaDevices.getUserMedia(mediaConstraints)
     document.getElementById('feed-1').srcObject = userStream
 
     
@@ -100,7 +108,7 @@ let setupPeerConnection = async(memberId) => {
 
     document.getElementById('feed-1').classList.add('windowFrame')
     if(!userStream){
-        userStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true})
+        userStream = await navigator.mediaDevices.getUserMedia(mediaConstraints)
         document.getElementById('feed-1').srcObject = userStream
     }
 
@@ -176,7 +184,7 @@ let toggleScreen = async () => {
     screen = true;
    }else{
     closeUserStream = userStream
-    userStream = await navigator.mediaDevices.getUserMedia({video: true,audio: true});
+    userStream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
     document.getElementById('screen-btn').style.backgroundColor = 'rgb(14, 212, 7, 0.9)'
     screen = false;
    }
@@ -218,7 +226,7 @@ let toggleMic = async () => {
     }
    }else{
       console.log("audio stream not present --- reinitiating the user stream")
-      userStream = await navigator.mediaDevices.getUserMedia({video: true,audio: true});
+      userStream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
     
  
        document.getElementById('feed-1').srcObject = userStream

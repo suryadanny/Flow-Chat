@@ -7,23 +7,31 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Flow-Lobby</title>
+        <title>Flow-Chat</title>
         <meta name="description" content="">
+        <link rel="icon" type="image/x-icon" href="images/flow.png">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="flow-chat.css">
     </head>
     <body>
-
+        <nav>
+           <div class="icon">
+             <img src="images/flow.png">
+           </div> 
+           <div class="navbar">
+            <h3 id = 'heading'>Flow Chat</h3>
+           </div>
+        </nav>
         <main id = "lobby">
             <div id = "lobby-container">
                 <div id = "form__content__header">
-                    <p>Create Or Join a Room</p>
+                    <p>Create Or Join Room</p>
                 </div>
 
                 <div id="form__content__Wrapper">
                     <form id="join-room" >
            
-                        <input type="text" id="room-id" name="roomId" value="room-id"  onfocus='if(this.value=="room-id"){this.value="";}' required>
+                        <input type="text" id="room-id" name="roomId" value="Enter Your Room Id Or Create One!!" onfocus='if(this.value == "Enter Your Room Id Or Create One!!"){this.value="";}' required>
                         <input type="submit" value="Join Room">
                     </form>
                 </div>
