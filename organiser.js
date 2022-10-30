@@ -81,6 +81,8 @@ let handleMsgFromRemote = async (message,memberId) => {
     if(message.type === 'candidate'){
         if(streamConnection){
             streamConnection.addIceCandidate(message.candidate)
+            console.log(streamConnection)
+            console.log("ice candidate added from peer")
         }
     }
 }
@@ -159,6 +161,7 @@ let createSDPAnswer = async(memberId,offer) => {
      
     await setupPeerConnection(memberId)
     await streamConnection.setRemoteDescription(offer)
+    console.log('remote description done')
     let sdpAnswer = await streamConnection.createAnswer()
     await streamConnection.setLocalDescription(sdpAnswer)
     client.sendMessageToPeer({text:JSON.stringify({'type': 'answer' , 'answer': sdpAnswer})},memberId)
