@@ -70,7 +70,7 @@ let handleMsgFromRemote = async (message,memberId) => {
     
     if(message.type === 'offer')
     {
-        createSDPAnswer(memberId,message.offer)
+       await createSDPAnswer(memberId,message.offer)
     }
 
     if(message.type === 'answer')
