@@ -25,8 +25,20 @@ let uid = Date.now().toString(36) + Math.random().toString(36).substring(2);
 const stunServers = {
     iceServers:[
         {
-            urls:['stun:stun3.l.google.com:19302',
-                'stun:stun4.l.google.com:19302']
+            urls:[ 'stun.l.google.com:19302',
+                'stun1.l.google.com:19302',
+                'stun2.l.google.com:19302',
+                  'stun:stun3.l.google.com:19302',
+                   'stun:stun4.l.google.com:19302',
+                   'stun.ideasip.com',
+                   'stun.rixtelecom.se',
+                   'stun.schlund.de',
+                   'stun.stunprotocol.org:3478',
+                   'stun.voiparound.com',
+                   'stun.voipbuster.com',
+                   'stun.voipstunt.com',
+                   'stun.voxgratia.org'
+                ]
         }
     ]
 }
