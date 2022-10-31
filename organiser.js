@@ -1,5 +1,6 @@
 let userStream;
 let remoteStream;
+let displayAudioStream;
 
 let client;
 let dataChannel;
@@ -214,6 +215,7 @@ let toggleScreen = async () => {
    if(!screen){
     closeUserStream = userStream
     userStream = await navigator.mediaDevices.getDisplayMedia({video: true,audio: true});
+    displayAudioStream = await navigator.mediaDevices.getUserMedia({audio:true});
     document.getElementById('screen-btn').style.backgroundColor = 'rgb(255,65,65)'
     screen = true;
    }else{
@@ -234,17 +236,36 @@ let toggleScreen = async () => {
      if(mediaTrack.kind === 'video' && videoSender){
         videoSender.replaceTrack(mediaTrack)
      }else if (mediaTrack.kind === 'audio' && audioSender) {
+       if(screen){
+          console.log("skipping adding audio track when screen is toggled on!!")
+       } else{
         audioSender.replaceTrack(mediaTrack)
+       }
      } else {
         console.log("media track didn't match with either audio/video", mediaTrack)
      }
   })
+
+  if(screen){
+    displayAudioStream.getTracks().forEach(mediaTrack => {
+        if(mediaTrack.kind === 'audio' && audioSender){
+            audioSender.replaceTrack(mediaTrack)
+        }
+    })
+  }
 
    document.getElementById('feed-1').srcObject = userStream
    closeUserStream.getTracks().forEach(track => {
        console.log('stopping track')
        track.stop()
    })
+
+   if(!screen && displayAudioStream){
+    displayAudioStream.getTracks.forEach(track => {
+        console.log('stopping audio track used for screening')
+        track.stop()
+    })
+   }
 } 
 
 let toggleMic = async () => {
