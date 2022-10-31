@@ -261,7 +261,7 @@ let toggleScreen = async () => {
    })
 
    if(!screen && displayAudioStream){
-    displayAudioStream.getTracks.forEach(track => {
+    displayAudioStream.getTracks().forEach(track => {
         console.log('stopping audio track used for screening')
         track.stop()
     })
