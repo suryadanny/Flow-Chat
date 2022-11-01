@@ -1,5 +1,5 @@
 # Flow-Chat
-A peer to peer video sharing &amp; screen sharing service, made using WebRTC and Agora. 
+A peer to peer video sharing &amp; screen sharing service, made using WebRTC, JavaScript and Agora. 
 
 
 It is a video call and screen sharing service based on WebRTC technology. we use Agora Service for signalling services - Signalling forms the bridge between both browser that want to communicate with each other. Agora help us in createing the channel between the two browsers to communicate significant details like ICE candidates and SDP offers/answers. once the browsers has the relevant details pertaining to the other peer browser, they are able to form the connection via WebRTC API's.
