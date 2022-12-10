@@ -1,4 +1,4 @@
-# Flow-Chat
+# Flow Chat - A peer to peer video chat application #
 A peer to peer video sharing &amp; screen sharing service, made using WebRTC, JavaScript and Agora. 
 
 
