@@ -11,11 +11,13 @@ It is a video call and screen sharing service based on WebRTC technology. we use
 You can look into these resource to further understand what signaling means - https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Signaling_and_video_calling
 
 
-**To use live deployed video conferencing application  -**
+
+
+## How To Use The Live Application ##
 
 Live Video Service available at - https://suryadanny.github.io/Flow-Chat/
 
-Steps to use:
+**To use live deployed video conferencing application  -**
 
-assign/fill in any random value in create or join room slot.
-provide the other user with the same room id to join the video conferencing session.
+**assign/fill in any random value in create or join room slot.
+provide the other user with the same room id to join the video conferencing session.**
