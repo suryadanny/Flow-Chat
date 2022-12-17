@@ -23,3 +23,13 @@ Live Video Service available at - https://suryadanny.github.io/Flow-Chat/
 provide the other user with the same room id to join the video conferencing session.**
 
 **Note - The service is not properly scaled down for mobile browser, its functional though. The serivce is currently best optimizied for PC browsers.**
+
+**Video Calling**
+
+![alt text](https://github.com/suryadanny/Flow-Chat/blob/main/demo-images/video-call.png?raw=true)  
+
+** **
+
+**Screen Sharing**
+
+![alt text](https://github.com/suryadanny/Flow-Chat/blob/main/demo-images/screen-share.png?raw=true)
